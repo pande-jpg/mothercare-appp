@@ -823,6 +823,29 @@ if ("serviceWorker" in navigator) {
     </div>
 </section>
 
+
+<script>
+function openServiceBooking(serviceName) {
+    const form = document.getElementById("bookingForm");
+
+    if (!form) {
+        alert("Booking form not found.");
+        return;
+    }
+
+    const serviceInput = form.querySelector('[name="service"]');
+
+    if (serviceInput) {
+        serviceInput.value = serviceName;
+    }
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+</script>
+
 </body> OR </html> YET.
 -->
 <section class="section" id="services">
@@ -866,9 +889,7 @@ if ("serviceWorker" in navigator) {
                 ₹300 <span>/ visit</span>
             </div>
 
-            <a href="#" class="service-button">
-                Book Service
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Cooking Service\'); return false;">Book Service</a>
 
         </div>
 
@@ -892,9 +913,7 @@ if ("serviceWorker" in navigator) {
                 ₹350 <span>/ visit</span>
             </div>
 
-            <a href="#" class="service-button">
-                Book Service
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Home Cleaning\'); return false;">Book Service</a>
 
         </div>
 
@@ -918,9 +937,7 @@ if ("serviceWorker" in navigator) {
                 ₹200 <span>/ order</span>
             </div>
 
-            <a href="#" class="service-button">
-                Book Service
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Laundry Service\'); return false;">Book Service</a>
 
         </div>
 
@@ -944,9 +961,7 @@ if ("serviceWorker" in navigator) {
                 ₹50 <span>/ delivery</span>
             </div>
 
-            <a href="#" class="service-button">
-                Order Grocery
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Grocery Delivery\'); return false;">Book Service</a>
 
         </div>
 
@@ -970,9 +985,7 @@ if ("serviceWorker" in navigator) {
                 ₹500 <span>/ visit</span>
             </div>
 
-            <a href="#" class="service-button">
-                Request Nurse
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Nurse Home Visit\'); return false;">Book Service</a>
 
         </div>
 
@@ -996,9 +1009,7 @@ if ("serviceWorker" in navigator) {
                 ₹700 <span>/ consultation</span>
             </div>
 
-            <a href="#" class="service-button">
-                Consult Doctor
-            </a>
+            <a href="#bookingForm" class="service-button" onclick="openServiceBooking(\'Doctor Consultation\'); return false;">Book Service</a>
 
         </div>
 
@@ -2900,6 +2911,29 @@ if (bookingForm) {
     });
 }
 </script>
+
+<script>
+function openServiceBooking(serviceName) {
+    const form = document.getElementById("bookingForm");
+
+    if (!form) {
+        alert("Booking form not found.");
+        return;
+    }
+
+    const serviceInput = form.querySelector('[name="service"]');
+
+    if (serviceInput) {
+        serviceInput.value = serviceName;
+    }
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+</script>
+
 </body>
 </html>
 <script>
