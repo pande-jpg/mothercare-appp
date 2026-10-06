@@ -21,9 +21,13 @@ def home(request):
         )
 
         try:
-            mother = MotherProfile.objects.get(email=request.user.email)
+            mother = MotherProfile.objects.get(
+                email=request.user.email
+            )
             bookings = ServiceBooking.objects.filter(
                 mother=mother
+            ).select_related(
+                "assigned_provider"
             ).order_by("-created_at")
         except MotherProfile.DoesNotExist:
             bookings = []
@@ -35,9 +39,8 @@ def home(request):
             "user": request.user,
             "profile": profile,
             "bookings": bookings,
-        },
+        }
     )
-
 
 def register(request):
     if request.method == "POST":

@@ -899,6 +899,34 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
+<div id="mothercare-bookings" style="max-width:900px;margin:30px auto;padding:20px;">
+    <h2 style="text-align:center;">My Service Bookings</h2>
+
+    {% if user.is_authenticated %}
+        {% if bookings %}
+            {% for booking in bookings %}
+            <div style="background:white;border-radius:15px;padding:18px;margin:15px 0;box-shadow:0 3px 15px rgba(0,0,0,.08);">
+                <h3>{{ booking.service }}</h3>
+                <p><strong>Date:</strong> {{ booking.booking_date }}</p>
+                <p><strong>Time:</strong> {{ booking.booking_time }}</p>
+                <p><strong>Status:</strong> {{ booking.status }}</p>
+
+                {% if booking.assigned_provider %}
+                    <p><strong>Provider:</strong> {{ booking.assigned_provider.name }}</p>
+                    <p><strong>Role:</strong> {{ booking.assigned_provider.role }}</p>
+                    <p><strong>Phone:</strong> {{ booking.assigned_provider.phone }}</p>
+                {% else %}
+                    <p><strong>Provider:</strong> Waiting for assignment</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align:center;">No bookings yet.</p>
+        {% endif %}
+    {% endif %}
+</div>
+
 </body> OR </html> YET.
 -->
 <section class="section" id="services">
@@ -3039,6 +3067,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+
+
+<div id="mothercare-bookings" style="max-width:900px;margin:30px auto;padding:20px;">
+    <h2 style="text-align:center;">My Service Bookings</h2>
+
+    {% if user.is_authenticated %}
+        {% if bookings %}
+            {% for booking in bookings %}
+            <div style="background:white;border-radius:15px;padding:18px;margin:15px 0;box-shadow:0 3px 15px rgba(0,0,0,.08);">
+                <h3>{{ booking.service }}</h3>
+                <p><strong>Date:</strong> {{ booking.booking_date }}</p>
+                <p><strong>Time:</strong> {{ booking.booking_time }}</p>
+                <p><strong>Status:</strong> {{ booking.status }}</p>
+
+                {% if booking.assigned_provider %}
+                    <p><strong>Provider:</strong> {{ booking.assigned_provider.name }}</p>
+                    <p><strong>Role:</strong> {{ booking.assigned_provider.role }}</p>
+                    <p><strong>Phone:</strong> {{ booking.assigned_provider.phone }}</p>
+                {% else %}
+                    <p><strong>Provider:</strong> Waiting for assignment</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align:center;">No bookings yet.</p>
+        {% endif %}
+    {% endif %}
+</div>
 
 </body>
 </html>
