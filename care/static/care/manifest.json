@@ -1,0 +1,17 @@
+{
+  "name": "MotherCare",
+  "short_name": "MotherCare",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff7fb",
+  "theme_color": "#e85d8f",
+  "description": "Pregnancy support services, healthcare and emergency assistance.",
+  "icons": [
+    {
+      "src": "/static/care/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

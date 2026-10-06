@@ -1,0 +1,2961 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="manifest" href="/static/care/manifest.json">
+    <meta name="theme-color" content="#e85d8f">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="MotherCare">
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>MotherCare | Pregnancy Support</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff9fb;
+    color: #333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+
+.nav-inner {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+
+    min-height: 72px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 700;
+    color: #d94f70;
+}
+
+.logo span {
+    color: #333;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-menu a {
+    font-size: 14px;
+    color: #444;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover {
+    color: #d94f70;
+}
+
+.nav-login {
+    padding: 9px 18px;
+    border: 1px solid #d94f70;
+    border-radius: 25px;
+    color: #d94f70 !important;
+}
+
+.nav-register {
+    padding: 10px 19px;
+    background: #d94f70;
+    color: #ffffff !important;
+    border-radius: 25px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 620px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff3f6 0%,
+            #ffe8ee 100%
+        );
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-inner {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 60px;
+}
+
+.hero-content {
+    padding: 40px 0;
+}
+
+.hero-label {
+    display: inline-block;
+
+    padding: 8px 17px;
+    margin-bottom: 20px;
+
+    background: #ffdce6;
+    color: #c13e61;
+
+    border-radius: 30px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.hero-title {
+    font-size: 55px;
+    line-height: 1.12;
+
+    color: #282828;
+
+    margin-bottom: 22px;
+}
+
+.hero-title span {
+    color: #d94f70;
+}
+
+.hero-description {
+    max-width: 570px;
+
+    color: #666;
+
+    font-size: 17px;
+
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.primary-button {
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    background: #d94f70;
+    color: white;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.primary-button:hover {
+    background: #c63f60;
+    transform: translateY(-2px);
+}
+
+.secondary-button {
+    display: inline-block;
+
+    padding: 13px 25px;
+
+    background: white;
+    color: #d94f70;
+
+    border: 1px solid #d94f70;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.secondary-button:hover {
+    background: #d94f70;
+    color: white;
+}
+
+
+/* =========================
+   HERO CARD
+========================= */
+
+.hero-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-card {
+    width: 360px;
+    min-height: 400px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 45px 35px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.10);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-circle {
+    width: 130px;
+    height: 130px;
+
+    border-radius: 50%;
+
+    background: #ffe1e9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 65px;
+
+    margin-bottom: 25px;
+}
+
+.hero-card h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.hero-card p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* =========================
+   SECTION COMMON
+========================= */
+
+.section {
+    padding: 85px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    color: #292929;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #777;
+    font-size: 15px;
+}
+
+.section-label {
+    color: #d94f70;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================
+   TRUST STRIP
+========================= */
+
+.trust-section {
+    background: white;
+    padding: 25px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.trust-inner {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+}
+
+.trust-item {
+    text-align: center;
+    padding: 10px;
+}
+
+.trust-icon {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.trust-item h4 {
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.trust-item p {
+    color: #888;
+    font-size: 12px;
+}
+
+
+/* =========================
+   MOBILE NAV
+========================= */
+
+@media (max-width: 850px) {
+
+    .nav-inner {
+        min-height: 65px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .nav-menu {
+        gap: 8px;
+    }
+
+    .nav-menu a {
+        font-size: 11px;
+    }
+
+    .nav-login,
+    .nav-register {
+        padding: 7px 10px;
+    }
+
+    .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+
+        gap: 20px;
+    }
+
+    .hero-content {
+        padding-top: 60px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        padding-bottom: 60px;
+    }
+
+    .hero-card {
+        width: 100%;
+        max-width: 350px;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 520px) {
+
+    .nav-inner {
+        width: 94%;
+    }
+
+    .logo {
+        font-size: 19px;
+    }
+
+    .nav-menu {
+        gap: 5px;
+    }
+
+    .nav-menu a {
+        font-size: 10px;
+    }
+
+    .nav-login,
+    .nav-register {
+        padding: 6px 8px;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-inner {
+        width: 92%;
+    }
+
+    .hero-title {
+        font-size: 36px;
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .section-title h2 {
+        font-size: 29px;
+    }
+
+    .trust-inner {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+    .django-message {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 9999;
+    background: #ffffff;
+    color: #333333;
+    padding: 16px 22px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    font-weight: 600;
+    border-left: 5px solid #d88aa0;
+}
+
+</style>
+
+</head>
+
+
+<body>
+{% if messages %}
+    {% for message in messages %}
+        <div class="django-message">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+        <a href="/" class="logo">
+            Mother<span>Care</span>
+        </a>
+
+        <div class="nav-menu">
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#packages">
+                Packages
+            </a>
+
+            <a href="#emergency">
+                Emergency
+            </a>
+
+            <a href="#account" class="nav-login">
+                    Login
+            </a>
+                    
+            <a href="#register" class="nav-register">
+                        Register
+            </a>
+                
+            
+
+            
+               
+           
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                Pregnancy Support At Home
+            </div>
+
+            <h1 class="hero-title">
+
+                Care for Mother.
+                <br>
+
+                <span>
+                    Peace for Family.
+                </span>
+
+            </h1>
+
+            <p class="hero-description">
+
+                MotherCare provides trusted pregnancy
+                support services for women who need
+                reliable help at home.
+
+                From household assistance to healthcare
+                coordination, we are here when you need us.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a href="#services"
+                   class="primary-button">
+
+                    Explore Services
+
+                </a>
+
+
+                <a href="#emergency"
+                   class="secondary-button">
+
+                    Emergency Support
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-visual">
+
+            <div class="hero-card">
+
+                <div class="hero-circle">
+                    🤰
+                </div>
+
+                <h2>
+                    You're Not Alone
+                </h2>
+
+                <p>
+
+                    Get dependable support during
+                    pregnancy, right from your home.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     TRUST SECTION
+========================= -->
+
+<section class="trust-section">
+
+    <div class="trust-inner">
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                🏠
+            </div>
+
+            <h4>
+                Home Support
+            </h4>
+
+            <p>
+                Help with everyday needs
+            </p>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                👩‍⚕️
+            </div>
+
+            <h4>
+                Healthcare Support
+            </h4>
+
+            <p>
+                Connect with care professionals
+            </p>
+
+        </div>
+
+
+        <div class="trust-item">
+
+            <div class="trust-icon">
+                ❤️
+            </div>
+
+            <h4>
+                Emergency Assistance
+            </h4>
+
+            <p>
+                Quick access to emergency help
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!--
+=========================================
+CHUNK 1 / 6 ENDS HERE
+=========================================
+
+CHUNK 2 WILL CONTINUE DIRECTLY BELOW THIS.
+DO NOT ADD 
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/static/care/sw.js")
+            .then(function () {
+                console.log("MotherCare app ready");
+            })
+            .catch(function (error) {
+                console.log("Service worker error:", error);
+            });
+    });
+}
+</script>
+
+
+<section id="dashboard" style="padding:70px 20px;background:#fff7fb;">
+    <div style="max-width:1100px;margin:auto;">
+        <h2 style="font-size:34px;margin-bottom:10px;">
+            My MotherCare Dashboard
+        </h2>
+
+        {% if user.is_authenticated %}
+            <p style="margin-bottom:30px;">
+                Welcome, {{ user.first_name }} ❤️
+            </p>
+
+            <div style="background:white;border-radius:18px;padding:25px;box-shadow:0 8px 30px rgba(0,0,0,.08);">
+                <h3 style="margin-bottom:20px;">My Bookings</h3>
+
+                {% if bookings %}
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%;border-collapse:collapse;">
+                            <tr>
+                                <th style="text-align:left;padding:12px;">Service</th>
+                                <th style="text-align:left;padding:12px;">Date</th>
+                                <th style="text-align:left;padding:12px;">Time</th>
+                                <th style="text-align:left;padding:12px;">Status</th>
+                                <th style="text-align:left;padding:12px;">Provider</th>
+                            </tr>
+
+                            {% for booking in bookings %}
+                            <tr>
+                                <td style="padding:12px;">
+                                    {{ booking.service }}
+                                </td>
+
+                                <td style="padding:12px;">
+                                    {{ booking.booking_date }}
+                                </td>
+
+                                <td style="padding:12px;">
+                                    {{ booking.booking_time }}
+                                </td>
+
+                                <td style="padding:12px;">
+                                    <strong>
+                                        {{ booking.status }}
+                                    </strong>
+                                </td>
+
+                                <td style="padding:12px;">
+                                    {% if booking.assigned_provider %}
+                                        {{ booking.assigned_provider.name }}
+                                    {% else %}
+                                        Not assigned
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <p>You don't have any bookings yet.</p>
+                {% endif %}
+            </div>
+
+            <br>
+
+            <a href="/logout/"
+               style="display:inline-block;padding:12px 22px;background:#e85d8f;color:white;border-radius:10px;text-decoration:none;">
+                Logout
+            </a>
+
+        {% else %}
+            <p>Please login to view your dashboard.</p>
+        {% endif %}
+    </div>
+</section>
+
+</body> OR </html> YET.
+-->
+<section class="section" id="services">
+
+    <div class="section-title">
+
+        <div class="section-label">
+            What We Provide
+        </div>
+
+        <h2>
+            Services for Every Need
+        </h2>
+
+        <p>
+            Simple, reliable support designed around pregnancy and everyday life.
+        </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🍲
+            </div>
+
+            <h3>
+                Cooking Service
+            </h3>
+
+            <p>
+                Get healthy home-cooked meals prepared
+                at your home according to your needs.
+            </p>
+
+            <div class="service-price">
+                ₹300 <span>/ visit</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Book Service
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🧹
+            </div>
+
+            <h3>
+                Home Cleaning
+            </h3>
+
+            <p>
+                Get help with regular household cleaning
+                when physical work becomes difficult.
+            </p>
+
+            <div class="service-price">
+                ₹350 <span>/ visit</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Book Service
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🧺
+            </div>
+
+            <h3>
+                Laundry Service
+            </h3>
+
+            <p>
+                Convenient laundry support including
+                collection, washing and delivery.
+            </p>
+
+            <div class="service-price">
+                ₹200 <span>/ order</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Book Service
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🛒
+            </div>
+
+            <h3>
+                Grocery Delivery
+            </h3>
+
+            <p>
+                Order essential groceries and receive
+                them conveniently at your doorstep.
+            </p>
+
+            <div class="service-price">
+                ₹50 <span>/ delivery</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Order Grocery
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                👩‍⚕️
+            </div>
+
+            <h3>
+                Nurse Home Visit
+            </h3>
+
+            <p>
+                Request a qualified nurse for basic
+                healthcare support at home.
+            </p>
+
+            <div class="service-price">
+                ₹500 <span>/ visit</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Request Nurse
+            </a>
+
+        </div>
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🩺
+            </div>
+
+            <h3>
+                Doctor Consultation
+            </h3>
+
+            <p>
+                Connect with a qualified doctor for
+                appropriate basic consultation.
+            </p>
+
+            <div class="service-price">
+                ₹700 <span>/ consultation</span>
+            </div>
+
+            <a href="#" class="service-button">
+                Consult Doctor
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<style>
+
+.services-grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.service-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,0.07);
+
+    transition: 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffe5ec;
+    border-radius: 17px;
+
+    font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    color: #777;
+    font-size: 14px;
+    min-height: 70px;
+}
+
+.service-price {
+    color: #d94f70;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.service-price span {
+    color: #888;
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.service-button {
+    display: inline-block;
+
+    margin-top: 18px;
+
+    padding: 10px 18px;
+
+    background: #d94f70;
+    color: white;
+
+    border-radius: 25px;
+
+    font-size: 13px;
+}
+
+@media (max-width: 850px) {
+
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .service-card {
+        padding: 25px;
+    }
+
+}
+
+</style>
+<section class="section" id="packages">
+
+    <div class="section-title">
+
+        <div class="section-label">
+            Long-Term Support
+        </div>
+
+        <h2>
+            9-Month Care Packages
+        </h2>
+
+        <p>
+            Choose a support plan that fits your pregnancy journey.
+        </p>
+
+    </div>
+
+
+    <div class="packages-grid">
+
+
+        <div class="package-card">
+
+            <div class="package-top">
+                <h3>
+                    Basic Care
+                </h3>
+
+                <span>
+                    Essential
+                </span>
+            </div>
+
+            <div class="package-price">
+                ₹16,000
+                <small>/ 9 months</small>
+            </div>
+
+            <p class="package-description">
+                Essential support for everyday pregnancy needs.
+            </p>
+
+            <ul>
+
+                <li>✓ Priority service booking</li>
+
+                <li>✓ Basic home support</li>
+
+                <li>✓ Grocery assistance</li>
+
+                <li>✓ Service coordination</li>
+
+                <li>✓ Emergency assistance access</li>
+
+            </ul>
+
+            <a href="/choose-package/Basic%20Care/" class="package-button">
+                Choose Basic
+
+            </a>
+
+        </div>
+
+
+
+        <div class="package-card featured">
+
+            <div class="popular">
+                MOST POPULAR
+            </div>
+
+            <div class="package-top">
+
+                <h3>
+                    MotherCare Plus
+                </h3>
+
+                <span>
+                    Recommended
+                </span>
+
+            </div>
+
+            <div class="package-price">
+                ₹24,000
+                <small>/ 9 months</small>
+            </div>
+
+            <p class="package-description">
+                Enhanced support for mothers who need regular assistance.
+            </p>
+
+            <ul>
+
+                <li>✓ Everything in Basic</li>
+
+                <li>✓ Regular home support</li>
+
+                <li>✓ Grocery assistance</li>
+
+                <li>✓ Healthcare coordination</li>
+
+                <li>✓ Priority support</li>
+
+                <li>✓ Emergency assistance access</li>
+
+            </ul>
+
+            <a href="/choose-package/MotherCare%20Plus/" class="package-button">Choose Plus</a>
+
+        </div>
+
+
+
+        <div class="package-card">
+
+            <div class="package-top">
+
+                <h3>
+                    Premium Care
+                </h3>
+
+                <span>
+                    Complete
+                </span>
+
+            </div>
+
+            <div class="package-price">
+                ₹35,000
+                <small>/ 9 months</small>
+            </div>
+
+            <p class="package-description">
+                Comprehensive support for a more comfortable pregnancy journey.
+            </p>
+
+            <ul>
+
+                <li>✓ Everything in Plus</li>
+
+                <li>✓ Enhanced home support</li>
+
+                <li>✓ Healthcare coordination</li>
+
+                <li>✓ Doctor consultation support</li>
+
+                <li>✓ Priority service access</li>
+
+                <li>✓ Emergency assistance access</li>
+
+            </ul>
+
+            <a href="/choose-package/Premium%20Care/" class="package-button">Choose Premium</a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<style>
+
+.packages-grid {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.package-card {
+    position: relative;
+
+    background: white;
+
+    padding: 32px;
+
+    border-radius: 22px;
+
+    border: 1px solid #f0dfe4;
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+
+.package-card.featured {
+    border: 2px solid #d94f70;
+    transform: translateY(-8px);
+}
+
+.popular {
+    position: absolute;
+
+    top: -13px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: #d94f70;
+    color: white;
+
+    padding: 6px 15px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: bold;
+
+    white-space: nowrap;
+}
+
+.package-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+.package-top h3 {
+    font-size: 21px;
+}
+
+.package-top span {
+    background: #fff0f4;
+    color: #d94f70;
+
+    padding: 5px 9px;
+
+    border-radius: 15px;
+
+    font-size: 10px;
+}
+
+.package-price {
+    color: #d94f70;
+
+    font-size: 32px;
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+.package-price small {
+    color: #888;
+
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.package-description {
+    color: #777;
+
+    font-size: 13px;
+
+    min-height: 45px;
+
+    margin-bottom: 18px;
+}
+
+.package-card ul {
+    list-style: none;
+
+    margin-bottom: 20px;
+}
+
+.package-card li {
+    color: #555;
+
+    font-size: 13px;
+
+    padding: 7px 0;
+
+    border-bottom: 1px solid #f5eeee;
+}
+
+.package-button {
+    display: block;
+
+    text-align: center;
+
+    padding: 12px;
+
+    background: #d94f70;
+    color: white;
+
+    border-radius: 25px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+@media (max-width: 900px) {
+
+    .packages-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+
+    .package-card.featured {
+        transform: none;
+    }
+
+}
+
+</style>
+<section class="section emergency-section" id="emergency">
+
+    <div class="emergency-box">
+
+        <div class="emergency-content">
+
+            <div class="section-label emergency-label">
+                Emergency Assistance
+            </div>
+
+            <h2>
+                Need Help Right Now?
+            </h2>
+
+            <p>
+                If you are facing a pregnancy-related emergency
+                and you are alone, MotherCare can help you request
+                emergency assistance and share your location
+                with your consent.
+            </p>
+
+            <button
+                type="button"
+                class="emergency-button"
+                onclick="openEmergency()">
+
+                🚨 Request Emergency Help
+
+            </button>
+
+        </div>
+
+
+        <div class="emergency-visual">
+
+            <div class="emergency-circle">
+                ❤️
+            </div>
+
+            <h3>
+                Help When You Need It
+            </h3>
+
+            <p>
+                Your location is requested only
+                when emergency assistance is needed.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section location-section">
+
+    <div class="section-title">
+
+        <div class="section-label">
+            Safe & Connected
+        </div>
+
+        <h2>
+            Location-Based Assistance
+        </h2>
+
+        <p>
+            MotherCare can help connect you with appropriate
+            nearby assistance when you give permission.
+        </p>
+
+    </div>
+
+
+    <div class="location-grid">
+
+
+        <div class="location-card">
+
+            <div class="location-icon">
+                📍
+            </div>
+
+            <h3>
+                Share Location
+            </h3>
+
+            <p>
+                Your precise location can be requested
+                during an emergency with your permission.
+            </p>
+
+        </div>
+
+
+        <div class="location-card">
+
+            <div class="location-icon">
+                🏥
+            </div>
+
+            <h3>
+                Nearby Hospital
+            </h3>
+
+            <p>
+                Emergency assistance can help identify
+                an appropriate nearby healthcare facility.
+            </p>
+
+        </div>
+
+
+        <div class="location-card">
+
+            <div class="location-icon">
+                🚑
+            </div>
+
+            <h3>
+                Emergency Support
+            </h3>
+
+            <p>
+                Connect with available emergency
+                assistance according to your situation.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<div id="emergencyModal" class="modal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeEmergency()">
+
+            ×
+
+        </button>
+
+        <div class="modal-icon">
+            🚨
+        </div>
+
+        <h2>
+            Emergency Assistance
+        </h2>
+
+        <p>
+            Do you want to share your current location
+            to request emergency assistance?
+        </p>
+
+        <p class="modal-note">
+            Your location will only be requested after
+            you give permission.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                class="allow-location"
+                onclick="alert('BUTTON WORKS')">
+
+                Allow Location
+
+            </button>
+
+            <button
+                class="cancel-location"
+                onclick="closeEmergency()">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+        <div id="locationStatus"></div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+.emergency-section {
+    padding-top: 40px;
+}
+
+.emergency-box {
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
+
+    padding: 55px;
+
+    background: #2b2023;
+
+    color: white;
+
+    border-radius: 28px;
+
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr;
+
+    align-items: center;
+
+    gap: 40px;
+}
+
+.emergency-label {
+    color: #ff809a;
+}
+
+.emergency-content h2 {
+    font-size: 38px;
+    margin-bottom: 15px;
+}
+
+.emergency-content p {
+    max-width: 650px;
+
+    color: #d6d6d6;
+
+    font-size: 15px;
+
+    margin-bottom: 25px;
+}
+
+.emergency-button {
+    background: #e95470;
+    color: white;
+
+    padding: 14px 23px;
+
+    border-radius: 28px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+}
+
+.emergency-visual {
+    text-align: center;
+}
+
+.emergency-circle {
+    width: 120px;
+    height: 120px;
+
+    margin: auto auto 18px;
+
+    border-radius: 50%;
+
+    background: #442b31;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 48px;
+}
+
+.emergency-visual h3 {
+    margin-bottom: 7px;
+}
+
+.emergency-visual p {
+    color: #aaa;
+    font-size: 13px;
+}
+
+
+/* LOCATION */
+
+.location-grid {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.location-card {
+    background: white;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    box-shadow: 0 7px 25px rgba(0,0,0,0.06);
+}
+
+.location-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    background: #fff0f4;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 29px;
+}
+
+.location-card h3 {
+    margin-bottom: 8px;
+}
+
+.location-card p {
+    color: #777;
+    font-size: 13px;
+}
+
+
+/* MODAL */
+
+.modal {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,0.65);
+
+    z-index: 2000;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 430px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+
+    top: 12px;
+    right: 17px;
+
+    background: none;
+
+    font-size: 28px;
+
+    color: #777;
+}
+
+.modal-icon {
+    font-size: 50px;
+
+    margin-bottom: 15px;
+}
+
+.modal-box h2 {
+    margin-bottom: 12px;
+}
+
+.modal-box p {
+    color: #666;
+
+    font-size: 14px;
+}
+
+.modal-note {
+    margin-top: 10px;
+
+    font-size: 12px !important;
+
+    color: #999 !important;
+}
+
+.modal-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.allow-location,
+.cancel-location {
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 25px;
+
+    font-weight: bold;
+}
+
+.allow-location {
+    background: #d94f70;
+    color: white;
+}
+
+.cancel-location {
+    background: #eee;
+    color: #555;
+}
+
+#locationStatus {
+    margin-top: 15px;
+
+    font-size: 13px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .emergency-box {
+        grid-template-columns: 1fr;
+
+        padding: 35px 25px;
+
+        text-align: center;
+    }
+
+    .emergency-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .location-grid {
+        grid-template-columns: 1fr;
+
+        max-width: 500px;
+    }
+
+}
+
+</style>
+<section class="section" id="account">
+    <div class="section-heading">
+        <span>YOUR ACCOUNT</span>
+        <h2>Manage Your MotherCare</h2>
+        <p>Login, create your account and manage your pregnancy support services.</p>
+    </div>
+
+    <div class="account-grid">
+
+        <div class="account-card">
+            <div class="account-icon">🔐</div>
+            <h3>Login</h3>
+            <p>Access your MotherCare account and bookings.</p>
+
+            <form class="account-form" method="POST" action="/login/">
+                {% csrf_token %}
+                <input type="email" id="loginEmail" name="email" placeholder="Email address" required>
+                <input type="password" id="loginPassword" name="password" placeholder="Password" required>
+                <button type="submit" class="primary-button">Login</button>
+            </form>
+
+            <p class="form-note">New to MotherCare? <a href="#register">Create an account</a></p>
+        </div>
+
+        <div class="account-card" id="register">
+            <div class="account-icon">👩‍🍼</div>
+            <h3>Create Account</h3>
+            <p>Join MotherCare and get support whenever you need it.</p>
+
+            <form class="account-form" method="POST" action="/register/">
+                {% csrf_token %}
+                <input type="text" id="registerName" name="name" placeholder="Full name" required>
+                <input type="email" id="registerEmail" name="email" placeholder="Email address" required>
+                <input type="tel" id="registerPhone" name="phone" placeholder="Phone number" required>
+                <input type="password" id="registerPassword" name="password" placeholder="Create password" required>
+                <button type="submit" class="primary-button">Create Account</button>
+            </form>
+
+            <p class="form-note">Your information is handled securely.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section profile-section" id="profile">
+    <div class="section-heading">
+        <span>PROFILE</span>
+        <h2>Your MotherCare Profile</h2>
+        <p>Keep your basic information ready so our support team can assist you faster.</p>
+    </div>
+
+    <div class="profile-card">
+
+        <div class="profile-top">
+            <div class="profile-avatar">M</div>
+
+            <div>
+                <h3>MotherCare Member</h3>
+                <p>Pregnancy Support Account</p>
+            </div>
+
+            <span class="profile-status">Active</span>
+        </div>
+
+        <div class="profile-details">
+
+            <div class="detail-box">
+                <span>Name</span>
+                <strong id="profileName">{{ user.first_name }}</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Phone</span>
+                <strong id="profilePhone">{{ profile.phone }}</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Email</span>
+                <strong id="profileEmail">{{ user.email }}</strong>
+            </div>
+
+            <div class="detail-box">
+                <span>Support Package</span>
+                <strong id="profilePackage">{{ profile.package }}</strong>
+            </div>
+
+        </div>
+
+        <button class="secondary-button" onclick="editProfile()">Update Profile</button>
+    </div>
+</section>
+
+<section class="section dashboard-section" id="dashboard">
+    <div class="section-heading">
+        <span>DASHBOARD</span>
+        <h2>Your Care Dashboard</h2>
+        <p>View your services, package and upcoming support in one place.</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+            <div class="dashboard-card-top">
+                <span class="dashboard-symbol">📅</span>
+                <span class="dashboard-label">Upcoming</span>
+            </div>
+            <h3>My Bookings</h3>
+            <p>Check your upcoming cooking, cleaning, nursing and other service requests.</p>
+            <button class="dashboard-button" onclick="showDashboardMessage('Bookings')">View Bookings</button>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-card-top">
+                <span class="dashboard-symbol">📦</span>
+                <span class="dashboard-label">Package</span>
+            </div>
+            <h3>My Package</h3>
+            <p>View your current pregnancy support package and included services.</p>
+            <button class="dashboard-button" onclick="showDashboardMessage('Package')">View Package</button>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-card-top">
+                <span class="dashboard-symbol">🩺</span>
+                <span class="dashboard-label">Healthcare</span>
+            </div>
+            <h3>Medical Support</h3>
+            <p>Request a nurse or doctor home visit for basic healthcare support.</p>
+            <button class="dashboard-button" onclick="showDashboardMessage('Medical Support')">Request Visit</button>
+        </div>
+
+        <div class="dashboard-card emergency-dashboard">
+            <div class="dashboard-card-top">
+                <span class="dashboard-symbol">🚨</span>
+                <span class="dashboard-label">Emergency</span>
+            </div>
+            <h3>Emergency Help</h3>
+            <p>Get quick assistance and share your location with your consent.</p>
+            <button class="dashboard-button emergency-dashboard-button" onclick="openEmergency()">Get Help</button>
+        </div>
+
+    </div>
+</section>
+
+<section class="section booking-section" id="booking">
+    <div class="section-heading">
+        <span>QUICK BOOKING</span>
+        <h2>Book a Service</h2>
+        <p>Select the support you need and our team can assist with the request.</p>
+    </div>
+
+    <div class="booking-card">
+        <form method="POST" action="/book-service/" id="bookingForm">
+            {% csrf_token %}
+
+        <div class="booking-row">
+            <div class="booking-field">
+                <label for="serviceSelect">Select Service</label>
+                <select id="serviceSelect" name="service">
+                    <option value="">Choose a service</option>
+                    <option>Cooking Service</option>
+                    <option>Home Cleaning</option>
+                    <option>Laundry Service</option>
+                    <option>Grocery Delivery</option>
+                    <option>Nurse Home Visit</option>
+                    <option>Doctor Consultation</option>
+                </select>
+            </div>
+
+            <div class="booking-field">
+                <label for="bookingDate">Preferred Date</label>
+                <input type="date" id="bookingDate" name="booking_date">
+            </div>
+        </div>
+
+        <div class="booking-row">
+            <div class="booking-field">
+                <label for="bookingTime">Preferred Time</label>
+                <select id="bookingTime" name="booking_time">
+                    <option value="">Choose time</option>
+                    <option>Morning</option>
+                    <option>Afternoon</option>
+                    <option>Evening</option>
+                </select>
+            </div>
+
+            <div class="booking-field">
+                <label for="bookingAddress">Service Address</label>
+                <input type="text" id="bookingAddress" name="address" placeholder="Enter your address">
+            </div>
+        </div>
+
+        <div class="booking-field full-field">
+            <label for="bookingNote">Additional Note</label>
+            <textarea id="bookingNote" name="note" rows="4" placeholder="Tell us anything our support team should know"></textarea>
+        </div>
+
+        <button class="primary-button booking-submit" type="submit">Request Service</button>
+    </form>
+        <div id="bookingMessage" class="booking-message"></div>
+{% if messages %}
+    {% for message in messages %}
+        <div class="booking-success">
+            ✓ {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+        <div id="bookingPopup" style="display:none;">
+                <div class="popup-box">
+                        <h3>Booking Request Sent ✅</h3>
+                        <p>Your MotherCare service request has been received.</p>
+                        <button type="button" onclick="closeBookingPopup()">OK</button>
+                </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .booking-success {
+            margin-top: 20px;
+                padding: 15px 20px;
+                    background: #eaf8ee;
+                        color: #237a3b;
+                            border: 1px solid #b7e4c2;
+                                border-radius: 10px;
+                                    font-weight: 600;
+                                        text-align: center;
+                                        
+    }
+
+.account-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+.account-card {
+    background: #ffffff;
+    border: 1px solid #eee5e8;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 12px 35px rgba(80, 40, 55, 0.07);
+}
+
+.account-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: #fff0f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 18px;
+}
+
+.account-card h3 {
+    font-size: 25px;
+    color: #38232b;
+    margin-bottom: 8px;
+}
+
+.account-card > p {
+    color: #777078;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.account-form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.account-form input,
+.booking-field input,
+.booking-field select,
+.booking-field textarea {
+    width: 100%;
+    border: 1px solid #ded6da;
+    border-radius: 12px;
+    padding: 14px 15px;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    color: #33252b;
+}
+
+.account-form input:focus,
+.booking-field input:focus,
+.booking-field select:focus,
+.booking-field textarea:focus {
+    border-color: #d96d8c;
+}
+
+.primary-button,
+.secondary-button,
+.dashboard-button {
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.primary-button {
+    background: #c95d7c;
+    color: #fff;
+}
+
+.primary-button:hover {
+    background: #ad4765;
+    transform: translateY(-1px);
+}
+
+.secondary-button {
+    background: #fff0f4;
+    color: #b44e6d;
+    margin-top: 22px;
+}
+
+.form-note {
+    font-size: 13px !important;
+    margin-top: 17px;
+    margin-bottom: 0 !important;
+}
+
+.form-note a {
+    color: #c95d7c;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.profile-section {
+    background: #fff8fa;
+}
+
+.profile-card {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #eee5e8;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 12px 35px rgba(80, 40, 55, 0.07);
+}
+
+.profile-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #eee6e9;
+}
+
+.profile-avatar {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: #c95d7c;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.profile-top h3 {
+    color: #38232b;
+    margin-bottom: 5px;
+}
+
+.profile-top p {
+    color: #82777d;
+    font-size: 14px;
+}
+
+.profile-status {
+    margin-left: auto;
+    padding: 7px 13px;
+    background: #e9f8ef;
+    color: #31824d;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.detail-box {
+    background: #faf7f8;
+    border-radius: 15px;
+    padding: 18px;
+}
+
+.detail-box span {
+    display: block;
+    font-size: 12px;
+    color: #8b7f85;
+    margin-bottom: 8px;
+}
+
+.detail-box strong {
+    color: #392a30;
+    font-size: 14px;
+}
+
+.dashboard-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.dashboard-card {
+    background: #fff;
+    border: 1px solid #eee5e8;
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: 0 10px 30px rgba(80, 40, 55, 0.06);
+}
+
+.dashboard-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.dashboard-symbol {
+    font-size: 27px;
+}
+
+.dashboard-label {
+    font-size: 11px;
+    color: #a17d89;
+    background: #fff1f5;
+    padding: 6px 9px;
+    border-radius: 20px;
+}
+
+.dashboard-card h3 {
+    color: #38232b;
+    margin-bottom: 10px;
+    font-size: 19px;
+}
+
+.dashboard-card p {
+    color: #7d7378;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 68px;
+    margin-bottom: 18px;
+}
+
+.dashboard-button {
+    background: #f7edf0;
+    color: #b24f6c;
+    width: 100%;
+}
+
+.dashboard-button:hover {
+    background: #f1dfe5;
+}
+
+.emergency-dashboard {
+    border-color: #f2c9d1;
+}
+
+.emergency-dashboard-button {
+    background: #d95c66;
+    color: #fff;
+}
+
+.emergency-dashboard-button:hover {
+    background: #bd414b;
+}
+
+.booking-section {
+    background: #fff8fa;
+}
+
+.booking-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #eee5e8;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 12px 35px rgba(80, 40, 55, 0.07);
+}
+
+.booking-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.booking-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.booking-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4d3b42;
+}
+
+.booking-field textarea {
+    resize: vertical;
+    font-family: Arial, sans-serif;
+}
+
+.full-field {
+    margin-bottom: 20px;
+}
+
+.booking-submit {
+    width: 100%;
+}
+
+.booking-message {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 12px;
+    background: #eef9f2;
+    color: #337a4a;
+    font-size: 14px;
+}
+
+@media (max-width: 1000px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .profile-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .account-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-row {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-details {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-card,
+    .account-card,
+    .booking-card {
+        padding: 22px;
+    }
+
+    .profile-top {
+        align-items: flex-start;
+    }
+
+    .profile-status {
+        font-size: 10px;
+        padding: 6px 9px;
+    }
+}
+</style>
+<footer class="site-footer">
+    <div class="footer-main">
+
+        <div class="footer-brand">
+            <div class="footer-logo">Mother<span>Care</span></div>
+            <p>Compassionate pregnancy support for mothers who need a little extra care.</p>
+        </div>
+
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <a href="#services">Services</a>
+            <a href="#packages">Packages</a>
+            <a href="#emergency">Emergency</a>
+            <a href="#booking">Book Service</a>
+        </div>
+
+        <div class="footer-links">
+            <h4>Support</h4>
+            <a href="#account">Login</a>
+            <a href="#register">Register</a>
+            <a href="#profile">Profile</a>
+            <a href="#dashboard">Dashboard</a>
+        </div>
+
+        <div class="footer-contact">
+            <h4>MotherCare Support</h4>
+            <p>📞 24/7 Support</p>
+            <p>✉️ support@mothercare.in</p>
+            <p>📍 Serving your local community</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 MotherCare. All rights reserved.</p>
+        <p>Privacy • Terms • Safety</p>
+    </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<style>
+.site-footer {
+    background: #30232a;
+    color: #fff;
+    padding: 55px 7% 20px;
+    margin-top: 30px;
+}
+
+.footer-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.3fr;
+    gap: 45px;
+}
+
+.footer-logo {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.footer-logo span {
+    color: #e98ba5;
+}
+
+.footer-brand p {
+    max-width: 310px;
+    color: #cbbfc4;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.footer-links,
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.footer-links h4,
+.footer-contact h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #cbbfc4;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.footer-links a:hover {
+    color: #f2a0b7;
+}
+
+.footer-contact p {
+    color: #cbbfc4;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 45px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #51444a;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    color: #aa9da3;
+    font-size: 12px;
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translate(-50%, 100px);
+    background: #30232a;
+    color: #fff;
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 14px;
+    text-align: center;
+    max-width: 90%;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
+}
+
+@media (max-width: 800px) {
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 520px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    setTimeout(function() {
+        toast.classList.remove("show");
+    }, 3000);
+}
+
+function openEmergency() {
+    const modal = document.getElementById("emergencyModal");
+
+    if (modal) {
+        modal.classList.add("active");
+    }
+}
+
+function closeEmergency() {
+    const modal = document.getElementById("emergencyModal");
+
+    if (modal) {
+        modal.classList.remove("active");
+    }
+}
+
+function requestLocation() { alert("LOCATION BUTTON WORKS"); alert("LOCATION BUTTON WORKS");
+    if (!navigator.geolocation) {
+        showToast("Location is not supported on this device.");
+        return;
+    }
+
+    showToast("Requesting your location...");
+
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            const formData = new FormData();
+            formData.append("latitude", latitude);
+            formData.append("longitude", longitude);
+
+            const csrfToken = document.querySelector(
+                '[name="csrfmiddlewaretoken"]'
+            );
+
+            fetch("/emergency/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken ? csrfToken.value : ""
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast("Emergency request sent successfully.");
+                    closeEmergency();
+                } else {
+                    showToast(data.message);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                showToast("Unable to send emergency request.");
+            });
+        },
+        function(error) {
+            console.error("Location error:", error);
+            showToast("Please allow location access for emergency support.");
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+    );
+}
+
+function demoLogin(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+
+    showToast("Demo login successful for " + email);
+
+    document.getElementById("profileEmail").textContent = email;
+
+    return false;
+}
+
+function demoRegister(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const phone = document.getElementById("registerPhone").value;
+
+    document.getElementById("profileName").textContent = name;
+    document.getElementById("profileEmail").textContent = email;
+    document.getElementById("profilePhone").textContent = phone;
+
+    showToast("Account created successfully.");
+
+    document.getElementById("profile").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    return false;
+}
+
+function editProfile() {
+    document.getElementById("account").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    showToast("Update your information from your account section.");
+}
+
+function showDashboardMessage(type) {
+    showToast(type + " section is ready for your request.");
+}
+
+function submitBooking() {
+    const service = document.getElementById("serviceSelect").value;
+    const date = document.getElementById("bookingDate").value;
+    const time = document.getElementById("bookingTime").value;
+    const address = document.getElementById("bookingAddress").value;
+
+    const message = document.getElementById("bookingMessage");
+
+    if (!service || !date || !time || !address) {
+        message.style.display = "block";
+        message.style.background = "#fff0f0";
+        message.style.color = "#b33d4a";
+        message.textContent =
+            "Please select the service, date, time and address.";
+        return;
+    }
+
+    message.style.display = "block";
+    message.style.background = "#eef9f2";
+    message.style.color = "#337a4a";
+    message.textContent =
+        "Your service request has been received. Our support team will contact you.";
+
+    showToast("Service request submitted.");
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    const links = document.querySelectorAll("a[href^=\"#\"]");
+
+    links.forEach(function(link) {
+        link.addEventListener("click", function(event) {
+            const targetId = this.getAttribute("href");
+
+            if (!targetId || targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (target) {
+                event.preventDefault();
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        });
+    });
+
+    const packageButtons = document.querySelectorAll(".package-button");
+
+    packageButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            const card = this.closest(".package-card");
+
+            if (card) {
+                const packageName =
+                    card.querySelector("h3")?.textContent || "Package";
+
+                const profilePackage =
+                    document.getElementById("profilePackage");
+
+                if (profilePackage) {
+                    profilePackage.textContent = packageName;
+                }
+
+                showToast(packageName + " selected.");
+
+                const bookingSection =
+                    document.getElementById("booking");
+
+                if (bookingSection) {
+                    bookingSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            }
+        });
+    });
+});
+const bookingForm = document.getElementById("bookingForm");
+
+if (bookingForm) {
+    bookingForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(bookingForm);
+
+        fetch("/book-service/", {
+            method: "POST",
+            body: formData
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+
+            const message = document.getElementById("bookingMessage");
+
+            if (data.success) {
+
+                message.innerHTML =
+                    "✓ " + data.message;
+
+                message.style.display = "block";
+
+                bookingForm.reset();
+
+            } else {
+
+                message.innerHTML =
+                    "⚠ " + data.message;
+
+                message.style.display = "block";
+            }
+        })
+        .catch(function(error) {
+
+            console.error(error);
+
+            const message = document.getElementById("bookingMessage");
+
+            message.innerHTML =
+                "⚠ Something went wrong. Please try again.";
+
+            message.style.display = "block";
+        });
+    });
+}
+</script>
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const emergencyButtons = document.querySelectorAll(
+        'button[onclick="openEmergency()"]'
+    );
+
+    emergencyButtons.forEach(function (button) {
+        button.removeAttribute("onclick");
+
+        button.addEventListener("click", function () {
+            if (!navigator.geolocation) {
+                alert("Location is not supported on this device.");
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    const formData = new FormData();
+                    formData.append("latitude", position.coords.latitude);
+                    formData.append("longitude", position.coords.longitude);
+
+                    const csrf = document.querySelector(
+                        "[name=csrfmiddlewaretoken]"
+                    );
+
+                    fetch("/emergency/", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": csrf ? csrf.value : ""
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Emergency request sent successfully!");
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(() => {
+                        alert("Could not send emergency request.");
+                    });
+                },
+                function () {
+                    alert("Please allow location access.");
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0
+                }
+            );
+        });
+    });
+});
+</script>
