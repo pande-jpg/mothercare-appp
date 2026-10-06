@@ -927,6 +927,17 @@ document.addEventListener("DOMContentLoaded", function () {
     {% endif %}
 </div>
 
+
+{% if user.is_authenticated %}
+<div style="max-width:900px;margin:20px auto;padding:20px;">
+    <h2 style="text-align:center;">Emergency Support</h2>
+    <p style="text-align:center;">
+        For an emergency, use the MotherCare emergency button.
+        Your location is shared only after you grant location permission.
+    </p>
+</div>
+{% endif %}
+
 </body> OR </html> YET.
 -->
 <section class="section" id="services">
@@ -3095,6 +3106,17 @@ document.addEventListener("DOMContentLoaded", function () {
         {% endif %}
     {% endif %}
 </div>
+
+
+{% if user.is_authenticated %}
+<div style="max-width:900px;margin:20px auto;padding:20px;">
+    <h2 style="text-align:center;">Emergency Support</h2>
+    <p style="text-align:center;">
+        For an emergency, use the MotherCare emergency button.
+        Your location is shared only after you grant location permission.
+    </p>
+</div>
+{% endif %}
 
 </body>
 </html>

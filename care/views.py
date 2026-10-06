@@ -206,47 +206,33 @@ def book_service(request):
 
 def emergency_request(request):
     if not request.user.is_authenticated:
-        return JsonResponse(
-            {
-                "success": False,
-                "message": "Please login before using emergency support.",
-            },
-            status=401,
-        )
+        return JsonResponse({
+            "success": False,
+            "message": "Please login before using emergency support."
+        }, status=401)
 
     if request.method == "POST":
-        latitude = request.POST.get(
-            "latitude",
-            ""
-        )
-        longitude = request.POST.get(
-            "longitude",
-            ""
-        )
+        latitude = request.POST.get("latitude", "").strip()
+        longitude = request.POST.get("longitude", "").strip()
 
         emergency = EmergencyRequest.objects.create(
             user=request.user,
             latitude=latitude,
             longitude=longitude,
-            status="Pending",
+            status="Pending"
         )
 
-        return JsonResponse(
-            {
-                "success": True,
-                "message": "Emergency request received.",
-                "request_id": emergency.id,
-            }
-        )
+        return JsonResponse({
+            "success": True,
+            "message": "Emergency request received.",
+            "request_id": emergency.id,
+            "status": emergency.status
+        })
 
-    return JsonResponse(
-        {
-            "success": False,
-            "message": "Invalid request.",
-        },
-        status=400,
-    )
-
+    return JsonResponse({
+        "success": False,
+        "message": "Invalid request."
+    }, status=400)
 
 PACKAGE_PRICES = {
     "Basic Care": 16000,
