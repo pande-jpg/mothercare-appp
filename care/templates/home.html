@@ -938,6 +938,42 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 {% endif %}
 
+
+{% if user.is_authenticated %}
+<div id="mothercare-account-card"
+     style="max-width:900px;margin:25px auto;padding:25px;
+     background:white;border-radius:18px;
+     box-shadow:0 4px 18px rgba(0,0,0,.08);">
+
+    <h2>My MotherCare Account</h2>
+
+    <p><strong>Name:</strong>
+        {{ user.first_name|default:"Not provided" }}
+    </p>
+
+    <p><strong>Email:</strong>
+        {{ user.email }}
+    </p>
+
+    <p><strong>Phone:</strong>
+        {{ profile.phone|default:"Not provided" }}
+    </p>
+
+    <p><strong>Package:</strong>
+        {{ profile.package|default:"No package selected" }}
+    </p>
+
+    <div style="margin-top:20px;">
+        <a href="/logout/"
+           style="display:inline-block;background:#e85d8f;color:white;
+           padding:12px 25px;border-radius:10px;
+           text-decoration:none;font-weight:bold;">
+            Logout
+        </a>
+    </div>
+</div>
+{% endif %}
+
 </body> OR </html> YET.
 -->
 <section class="section" id="services">
@@ -3115,6 +3151,42 @@ document.addEventListener("DOMContentLoaded", function () {
         For an emergency, use the MotherCare emergency button.
         Your location is shared only after you grant location permission.
     </p>
+</div>
+{% endif %}
+
+
+{% if user.is_authenticated %}
+<div id="mothercare-account-card"
+     style="max-width:900px;margin:25px auto;padding:25px;
+     background:white;border-radius:18px;
+     box-shadow:0 4px 18px rgba(0,0,0,.08);">
+
+    <h2>My MotherCare Account</h2>
+
+    <p><strong>Name:</strong>
+        {{ user.first_name|default:"Not provided" }}
+    </p>
+
+    <p><strong>Email:</strong>
+        {{ user.email }}
+    </p>
+
+    <p><strong>Phone:</strong>
+        {{ profile.phone|default:"Not provided" }}
+    </p>
+
+    <p><strong>Package:</strong>
+        {{ profile.package|default:"No package selected" }}
+    </p>
+
+    <div style="margin-top:20px;">
+        <a href="/logout/"
+           style="display:inline-block;background:#e85d8f;color:white;
+           padding:12px 25px;border-radius:10px;
+           text-decoration:none;font-weight:bold;">
+            Logout
+        </a>
+    </div>
 </div>
 {% endif %}
 
