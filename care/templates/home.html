@@ -2959,3 +2959,49 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const serviceNames = [
+        "Cooking Service",
+        "Home Cleaning",
+        "Laundry Service",
+        "Grocery Delivery",
+        "Nurse Home Visit",
+        "Doctor Consultation"
+    ];
+
+    document.querySelectorAll("a, button").forEach(function (element) {
+        const text = element.textContent.trim();
+
+        const service = serviceNames.find(function (name) {
+            return text.includes(name);
+        });
+
+        if (!service) return;
+
+        element.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const bookingForm = document.getElementById("bookingForm");
+
+            if (bookingForm) {
+                const serviceInput = bookingForm.querySelector(
+                    '[name="service"]'
+                );
+
+                if (serviceInput) {
+                    serviceInput.value = service;
+                }
+
+                bookingForm.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+        });
+    });
+});
+</script>
+
