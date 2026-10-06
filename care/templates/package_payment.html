@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotherCare Package</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff7fa;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .box {
+            max-width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            color: #e85d8f;
+        }
+
+        .amount {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 20px;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 13px 22px;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            margin: 8px;
+        }
+
+        button {
+            background: #e85d8f;
+            color: white;
+        }
+
+        a {
+            background: #eee;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>MotherCare</h1>
+
+    <h2>{{ package }}</h2>
+
+    <div class="amount">₹{{ amount }}</div>
+
+    <p>
+        You are selecting this MotherCare package.
+        Payment gateway integration will be completed separately.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Package</button>
+    </form>
+
+    <a href="/">Back to Home</a>
+</div>
+
+</body>
+</html>

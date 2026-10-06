@@ -254,10 +254,7 @@ PACKAGE_PRICES = {
 
 def create_package_payment(request, package_name):
     if not request.user.is_authenticated:
-        return JsonResponse({
-            "success": False,
-            "message": "Please login first."
-        }, status=401)
+        return redirect("/#account")
 
     from .models import PaymentRecord
 
@@ -269,23 +266,34 @@ def create_package_payment(request, package_name):
 
     amount = PACKAGE_PRICES[package_name]
 
-    payment = PaymentRecord.objects.create(
-        user=request.user,
-        package=package_name,
-        amount=amount,
-        status="Pending"
-    )
+    if request.method == "POST":
+        payment = PaymentRecord.objects.create(
+            user=request.user,
+            package=package_name,
+            amount=amount,
+            status="Pending"
+        )
 
-    profile, created = UserProfile.objects.get_or_create(
-        user=request.user
-    )
-    profile.package = package_name
-    profile.save()
+        profile, created = UserProfile.objects.get_or_create(
+            user=request.user
+        )
+        profile.package = package_name
+        profile.save()
 
-    return JsonResponse({
-        "success": True,
-        "payment_id": payment.id,
+        messages.success(
+            request,
+            f"{package_name} selected successfully. Payment is pending."
+        )
+
+        return redirect("/#profile")
+
+    return render(request, "package_payment.html", {
         "package": package_name,
         "amount": amount,
-        "message": "Package selected. Payment is pending."
     })
+
+def privacy_policy(request):
+    return render(request, "privacy.html")
+
+def terms_conditions(request):
+    return render(request, "terms.html")
