@@ -14,6 +14,7 @@ from .models import (
 def home(request):
     profile = None
     bookings = []
+    emergencies = []
 
     if request.user.is_authenticated:
         profile, created = UserProfile.objects.get_or_create(
@@ -24,13 +25,19 @@ def home(request):
             mother = MotherProfile.objects.get(
                 email=request.user.email
             )
+
             bookings = ServiceBooking.objects.filter(
                 mother=mother
             ).select_related(
                 "assigned_provider"
             ).order_by("-created_at")
+
         except MotherProfile.DoesNotExist:
             bookings = []
+
+        emergencies = EmergencyRequest.objects.filter(
+            user=request.user
+        ).order_by("-created_at")
 
     return render(
         request,
@@ -39,6 +46,7 @@ def home(request):
             "user": request.user,
             "profile": profile,
             "bookings": bookings,
+            "emergencies": emergencies,
         }
     )
 
