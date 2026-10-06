@@ -862,6 +862,43 @@ function openServiceBooking(serviceName) {
     </a>
 </div>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const loggedIn = document.body.innerText.includes("Logout");
+
+    if (!loggedIn) return;
+
+    const links = document.querySelectorAll("a");
+
+    links.forEach(function (link) {
+        const text = link.textContent.trim().toLowerCase();
+
+        if (text === "login" || text === "register") {
+            link.style.display = "none";
+        }
+    });
+
+    const navArea = document.querySelector("nav");
+
+    if (navArea && !document.getElementById("logged-in-nav")) {
+        const box = document.createElement("div");
+        box.id = "logged-in-nav";
+        box.style.display = "inline-flex";
+        box.style.gap = "10px";
+        box.style.alignItems = "center";
+
+        box.innerHTML = `
+            <a href="#dashboard">Dashboard</a>
+            <a href="#profile">Profile</a>
+            <a href="/logout/">Logout</a>
+        `;
+
+        navArea.appendChild(box);
+    }
+});
+</script>
+
 </body> OR </html> YET.
 -->
 <section class="section" id="services">
@@ -2965,6 +3002,43 @@ function openServiceBooking(serviceName) {
         Logout
     </a>
 </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const loggedIn = document.body.innerText.includes("Logout");
+
+    if (!loggedIn) return;
+
+    const links = document.querySelectorAll("a");
+
+    links.forEach(function (link) {
+        const text = link.textContent.trim().toLowerCase();
+
+        if (text === "login" || text === "register") {
+            link.style.display = "none";
+        }
+    });
+
+    const navArea = document.querySelector("nav");
+
+    if (navArea && !document.getElementById("logged-in-nav")) {
+        const box = document.createElement("div");
+        box.id = "logged-in-nav";
+        box.style.display = "inline-flex";
+        box.style.gap = "10px";
+        box.style.alignItems = "center";
+
+        box.innerHTML = `
+            <a href="#dashboard">Dashboard</a>
+            <a href="#profile">Profile</a>
+            <a href="/logout/">Logout</a>
+        `;
+
+        navArea.appendChild(box);
+    }
+});
+</script>
 
 </body>
 </html>
