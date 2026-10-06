@@ -3005,3 +3005,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
+<script>
+document.addEventListener("click", function(event) {
+    const clicked = event.target.closest("a, button, div, article, section");
+
+    if (!clicked) return;
+
+    const text = clicked.innerText || clicked.textContent || "";
+
+    const services = {
+        "Cooking Service": "Cooking Service",
+        "Home Cleaning": "Home Cleaning",
+        "Laundry Service": "Laundry Service",
+        "Grocery Delivery": "Grocery Delivery",
+        "Nurse Home Visit": "Nurse Home Visit",
+        "Doctor Consultation": "Doctor Consultation"
+    };
+
+    let selectedService = null;
+
+    for (const name in services) {
+        if (text.trim().includes(name)) {
+            selectedService = services[name];
+            break;
+        }
+    }
+
+    if (!selectedService) return;
+
+    const form = document.getElementById("bookingForm");
+
+    if (!form) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    const serviceInput = form.querySelector('[name="service"]');
+
+    if (serviceInput) {
+        serviceInput.value = selectedService;
+    }
+
+    form.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}, true);
+</script>
+
