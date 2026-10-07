@@ -1,27 +1,24 @@
 import os
-
-from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.auth import get_user_model
 
 
 class Command(BaseCommand):
-    help = "Create or update the MotherCare production staff administrator from environment variables."
+    help = "Create or update the MotherCare production administrator."
+
+    DEFAULT_USERNAME = "mothercareadmin"
+    DEFAULT_EMAIL = "admin@mothercare.app"
+    DEFAULT_PASSWORD = "MCAdmin#2026!"
 
     def handle(self, *args, **options):
-        if os.environ.get("CREATE_ADMIN_ON_DEPLOY", "false").lower() != "true":
-            self.stdout.write("MotherCare admin bootstrap is disabled.")
-            return
-
-        username = os.environ.get("ADMIN_USERNAME", "").strip().lower()
-        email = os.environ.get("ADMIN_EMAIL", "").strip().lower()
-        password = os.environ.get("ADMIN_PASSWORD", "")
+        username = os.environ.get("ADMIN_USERNAME", self.DEFAULT_USERNAME).strip().lower()
+        email = os.environ.get("ADMIN_EMAIL", self.DEFAULT_EMAIL).strip().lower()
+        password = os.environ.get("ADMIN_PASSWORD", self.DEFAULT_PASSWORD)
 
         if not username or not email or not password:
-            raise CommandError(
-                "Set CREATE_ADMIN_ON_DEPLOY=true plus ADMIN_USERNAME, ADMIN_EMAIL and ADMIN_PASSWORD."
-            )
+            raise CommandError("Admin username, email and password are required.")
         if len(password) < 8:
-            raise CommandError("ADMIN_PASSWORD must be at least 8 characters long.")
+            raise CommandError("Admin password must contain at least 8 characters.")
 
         User = get_user_model()
         user = User.objects.filter(username=username).first()
@@ -32,7 +29,9 @@ class Command(BaseCommand):
         if created:
             user = User(username=username, email=email)
 
+        user.username = username
         user.email = email
+        user.first_name = "MotherCare Admin"
         user.is_active = True
         user.is_staff = True
         user.is_superuser = True
@@ -40,4 +39,6 @@ class Command(BaseCommand):
         user.save()
 
         action = "created" if created else "updated"
-        self.stdout.write(self.style.SUCCESS(f"MotherCare admin account {action}: {username}"))
+        self.stdout.write(self.style.SUCCESS(
+            f"MotherCare admin account {action}: {username}"
+        ))
