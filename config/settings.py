@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = []
+
 
 # Application definition
 
@@ -153,6 +155,7 @@ render_host = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
 if render_host:
     ALLOWED_HOSTS.append(render_host)
+    CSRF_TRUSTED_ORIGINS.append(f"https://{render_host}")
 
 extra_hosts = os.environ.get("ALLOWED_HOSTS", "")
 
@@ -161,6 +164,14 @@ if extra_hosts:
         host.strip()
         for host in extra_hosts.split(",")
         if host.strip()
+    )
+
+extra_csrf_origins = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+if extra_csrf_origins:
+    CSRF_TRUSTED_ORIGINS.extend(
+        origin.strip()
+        for origin in extra_csrf_origins.split(",")
+        if origin.strip()
     )
 
 
@@ -191,6 +202,10 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+    SECURE_REFERRER_POLICY = "same-origin"
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin"
+    X_FRAME_OPTIONS = "DENY"
 
 
 # MotherCare production email settings
