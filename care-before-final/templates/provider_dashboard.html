@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotherCare Provider</title>
+<style>
+body{font-family:Arial,sans-serif;background:#fffaf6;color:#49343d;margin:0;padding:20px}.wrap{max-width:950px;margin:auto}.card{background:white;border-radius:20px;padding:20px;margin:15px 0;box-shadow:0 8px 25px rgba(73,52,61,.08)}h1{margin-bottom:5px}.muted{color:#777}.booking{border-top:1px solid #eee;padding:15px 0}.btn{border:0;border-radius:10px;padding:10px 14px;margin:4px;cursor:pointer;background:#c96f83;color:white}.btn.alt{background:#a9b9a5}.status{font-weight:bold}.deny{text-align:center;margin:15vh auto;max-width:500px}
+</style>
+</head>
+<body>
+<div class="wrap"><form style="display:none">{% csrf_token %}</form>
+{% if access_denied %}
+<div class="card deny"><h1>Provider access unavailable</h1><p class="muted">Your provider account must be linked to a Django user and verified by MotherCare before provider tools are available.</p><a href="/">Return to MotherCare</a></div>
+{% else %}
+<div class="card"><h1>Welcome, {{ provider.name }}</h1><p class="muted">{{ provider.role }} · {{ provider.service_area }}</p><p>Verification: <strong>Verified</strong></p></div>
+{% for booking in bookings %}
+<div class="card booking">
+<h2>#{{ booking.id }} — {{ booking.service }}</h2>
+<p><strong>Customer:</strong> {{ booking.mother.name }}</p>
+<p><strong>Date:</strong> {{ booking.booking_date }} · <strong>Time:</strong> {{ booking.booking_time }}</p>
+<p><strong>Address:</strong> {{ booking.address }}</p>
+<p class="status">Status: <span id="status-{{ booking.id }}">{{ booking.status }}</span></p>
+<button class="btn" onclick="updateBooking({{ booking.id }}, 'Confirmed')">Confirm</button>
+<button class="btn alt" onclick="updateBooking({{ booking.id }}, 'In Progress')">Start</button>
+<button class="btn" onclick="updateBooking({{ booking.id }}, 'Completed')">Complete</button>
+<button class="btn" onclick="updateBooking({{ booking.id }}, 'Cancelled')">Cancel</button>
+</div>
+{% empty %}<div class="card"><p>No bookings are assigned to you yet.</p></div>{% endfor %}
+{% endif %}
+</div>
+<script>
+function csrf(){return document.cookie.split('; ').find(x=>x.startsWith('csrftoken='))?.split('=')[1]||document.querySelector('[name=csrfmiddlewaretoken]')?.value||'';}
+async function updateBooking(id,status){const body=new URLSearchParams({status});const r=await fetch('/provider/booking/'+id+'/status/',{method:'POST',headers:{'X-CSRFToken':csrf(),'Content-Type':'application/x-www-form-urlencoded'},body});const d=await r.json();alert(d.message);if(d.success)document.getElementById('status-'+id).textContent=status;}
+</script>
+</body>
+</html>

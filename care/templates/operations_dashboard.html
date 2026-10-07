@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>MotherCare Operations</title><style>body{font-family:Arial;background:#fffaf6;color:#49343d;padding:20px}.wrap{max-width:1100px;margin:auto}.card{background:#fff;padding:20px;border-radius:18px;margin:15px 0;box-shadow:0 8px 25px #0000000d}table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px solid #eee;text-align:left}select,button{padding:9px;border-radius:8px}button{background:#c96f83;color:#fff;border:0}</style></head>
-<body><div class="wrap"><div class="card"><h1>MotherCare Operations</h1><p>Staff-only booking and emergency operations.</p></div>
-<div class="card"><h2>Bookings</h2><table><tr><th>ID</th><th>Customer</th><th>Service</th><th>Status</th><th>Provider</th><th>Assign</th></tr>{% for b in bookings %}<tr><td>#{{b.id}}</td><td>{{b.mother.name}}</td><td>{{b.service}}</td><td>{{b.status}}</td><td>{% if b.assigned_provider %}{{b.assigned_provider.name}}{% else %}Unassigned{% endif %}</td><td><form method="post" action="/operations/booking/{{b.id}}/assign/">{% csrf_token %}<select name="provider_id">{% for p in providers %}{% if p.verified and p.available %}<option value="{{p.id}}">{{p.name}} — {{p.role}}</option>{% endif %}{% endfor %}</select><button>Assign</button></form></td></tr>{% empty %}<tr><td colspan="6">No bookings.</td></tr>{% endfor %}</table></div>
-<div class="card"><h2>Emergency requests</h2><table><tr><th>ID</th><th>User</th><th>Status</th><th>Received</th><th>Location</th></tr>{% for e in emergencies %}<tr><td>#{{e.id}}</td><td>{{e.user.email}}</td><td>{{e.status}}</td><td>{{e.created_at}}</td><td>{% if e.latitude and e.longitude %}<a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{e.latitude}},{{e.longitude}}">Open map</a>{% else %}No location{% endif %}</td></tr>{% empty %}<tr><td colspan="5">No emergency requests.</td></tr>{% endfor %}</table></div></div></body></html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MotherCare Staff Dashboard</title>
+<style>
+:root{--rose:#c96f83;--dark:#49343d;--cream:#fffaf6;--sage:#a9b9a5;--line:#eadfe0;--white:#fff}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--cream);color:var(--dark)}
+a{color:var(--rose)}.wrap{max-width:1200px;margin:auto;padding:18px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.top h1{margin:0}.muted{color:#777}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.stat,.card{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 6px 22px #49343d10}.stat strong{font-size:28px;display:block}.card{margin:16px 0;overflow:auto}h2{margin-top:0}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:13px}.btn,button{border:0;border-radius:9px;padding:8px 11px;background:var(--rose);color:#fff;cursor:pointer;margin:2px}.btn.alt,button.alt{background:var(--sage);color:var(--dark)}select{padding:8px;border:1px solid var(--line);border-radius:9px;background:#fff}.pill{display:inline-block;padding:4px 8px;border-radius:99px;background:#f5e5e8;font-size:12px}.danger{background:#8d4b59}.ok{background:#71866c}.notice{padding:12px;background:#f8eef0;border-radius:12px;margin-bottom:12px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.wrap{padding:12px}.stat strong{font-size:23px}}
+@media(max-width:480px){.grid{grid-template-columns:1fr 1fr}.top h1{font-size:23px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top"><div><h1>MotherCare Staff</h1><div class="muted">Operations control centre</div></div><div><a href="/">Customer site</a> · <a href="/admin/">Django Admin</a></div></div>
+<div class="notice"><strong>Emergency note:</strong> location shown here is provided by the customer after location permission. This dashboard does not itself dispatch an ambulance.</div>
+
+<div class="grid">
+<div class="stat"><span>Customers</span><strong>{{stats.customers}}</strong></div>
+<div class="stat"><span>Bookings</span><strong>{{stats.bookings}}</strong></div>
+<div class="stat"><span>Pending bookings</span><strong>{{stats.pending_bookings}}</strong></div>
+<div class="stat"><span>Providers</span><strong>{{stats.providers}}</strong></div>
+<div class="stat"><span>Verified providers</span><strong>{{stats.verified_providers}}</strong></div>
+<div class="stat"><span>Active emergencies</span><strong>{{stats.emergencies}}</strong></div>
+<div class="stat"><span>Reviews</span><strong>{{stats.reviews}}</strong></div>
+<div class="stat"><span>Pending payments</span><strong>{{stats.pending_payments}}</strong></div>
+</div>
+
+<div class="card"><h2>Bookings</h2><table><tr><th>ID</th><th>Customer</th><th>Service</th><th>Date</th><th>Status</th><th>Provider</th><th>Actions</th></tr>
+{% for b in bookings %}<tr><td>#{{b.id}}</td><td>{{b.mother.name}}<br><small>{{b.mother.email}}</small></td><td>{{b.service}}</td><td>{{b.booking_date}}<br>{{b.booking_time}}</td><td><span class="pill">{{b.status}}</span></td><td>{% if b.assigned_provider %}{{b.assigned_provider.name}}{% else %}Unassigned{% endif %}</td><td>
+<form method="post" action="{% url 'operations_assign_provider' b.id %}">{% csrf_token %}<select name="provider_id"><option value="">Assign provider</option>{% for p in providers %}{% if p.verified and p.available %}<option value="{{p.id}}">{{p.name}} — {{p.role}}</option>{% endif %}{% endfor %}</select><button>Assign</button></form>
+<form method="post" action="{% url 'operations_update_booking' b.id %}">{% csrf_token %}<select name="status"><option>Pending</option><option>Confirmed</option><option>In Progress</option><option>Completed</option><option>Cancelled</option></select><button class="alt">Update</button></form>
+</td></tr>{% empty %}<tr><td colspan="7">No bookings yet.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Providers</h2><table><tr><th>Name</th><th>Role</th><th>Phone</th><th>Qualification</th><th>Verified</th><th>Available</th><th>Action</th></tr>
+{% for p in providers %}<tr><td>{{p.name}}<br><small>{{p.email}}</small></td><td>{{p.role}}</td><td>{{p.phone}}</td><td>{{p.qualification|default:"—"}}</td><td>{% if p.verified %}<span class="pill ok">Verified</span>{% else %}<span class="pill">Pending</span>{% endif %}</td><td>{{p.available}}</td><td>{% if not p.verified %}<form method="post" action="{% url 'operations_verify_provider' p.id %}">{% csrf_token %}<button>Verify</button></form>{% else %}Ready{% endif %}</td></tr>{% empty %}<tr><td colspan="7">No providers yet.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Emergency requests</h2><table><tr><th>ID</th><th>User</th><th>Status</th><th>Received</th><th>Location</th><th>Update</th></tr>
+{% for e in emergencies %}<tr><td>#{{e.id}}</td><td>{{e.user.email}}</td><td><span class="pill">{{e.status}}</span></td><td>{{e.created_at}}</td><td>{% if e.latitude and e.longitude %}<a target="_blank" href="https://www.google.com/maps/search/?api=1&query={{e.latitude}},{{e.longitude}}">Open map</a>{% else %}No location{% endif %}</td><td><form method="post" action="{% url 'operations_update_emergency' e.id %}">{% csrf_token %}<select name="status"><option>Pending</option><option>Processing</option><option>Resolved</option><option>Cancelled</option></select><button>Update</button></form></td></tr>{% empty %}<tr><td colspan="6">No emergency requests.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Payments</h2><table><tr><th>ID</th><th>User</th><th>Package</th><th>Amount</th><th>Status</th><th>Action</th></tr>
+{% for p in payments %}<tr><td>#{{p.id}}</td><td>{{p.user.email}}</td><td>{{p.package}}</td><td>₹{{p.amount}}</td><td><span class="pill">{{p.status}}</span></td><td><form method="post" action="{% url 'operations_update_payment' p.id %}">{% csrf_token %}<select name="status"><option>Pending</option><option>Paid</option><option>Failed</option><option>Refunded</option></select><button>Update</button></form></td></tr>{% empty %}<tr><td colspan="6">No payment records.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Reviews</h2><table><tr><th>Customer</th><th>Booking</th><th>Provider</th><th>Rating</th><th>Comment</th><th>Date</th></tr>
+{% for r in reviews %}<tr><td>{{r.user.email}}</td><td>#{{r.booking.id}} — {{r.booking.service}}</td><td>{% if r.booking.assigned_provider %}{{r.booking.assigned_provider.name}}{% else %}—{% endif %}</td><td>{{r.rating}} / 5</td><td>{{r.comment|default:"—"}}</td><td>{{r.created_at}}</td></tr>{% empty %}<tr><td colspan="6">No reviews yet.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Customers</h2><table><tr><th>Name</th><th>Email</th><th>Joined</th><th>Active</th></tr>
+{% for c in customers %}<tr><td>{{c.first_name|default:"—"}}</td><td>{{c.email}}</td><td>{{c.date_joined}}</td><td>{{c.is_active}}</td></tr>{% empty %}<tr><td colspan="4">No customers yet.</td></tr>{% endfor %}</table></div>
+
+<div class="card"><h2>Recent notifications</h2><table><tr><th>User</th><th>Title</th><th>Message</th><th>Time</th></tr>
+{% for n in notifications %}<tr><td>{{n.user.email}}</td><td>{{n.title}}</td><td>{{n.message}}</td><td>{{n.created_at}}</td></tr>{% empty %}<tr><td colspan="4">No notifications.</td></tr>{% endfor %}</table></div>
+</div>
+</body>
+</html>

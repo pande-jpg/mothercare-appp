@@ -317,30 +317,10 @@ def operations_dashboard(request):
     bookings = ServiceBooking.objects.select_related("mother", "assigned_provider").order_by("-created_at")[:100]
     emergencies = EmergencyRequest.objects.select_related("user").order_by("-created_at")[:100]
     providers = ServiceProvider.objects.order_by("role", "name")
-    customers = User.objects.filter(is_staff=False).order_by("-date_joined")[:100]
-    reviews = Review.objects.select_related("user", "booking", "booking__mother", "booking__assigned_provider").order_by("-created_at")[:100]
-    payments = PaymentRecord.objects.select_related("user").order_by("-created_at")[:100]
-    notifications = Notification.objects.select_related("user").order_by("-created_at")[:100]
-
-    stats = {
-        "customers": User.objects.filter(is_staff=False).count(),
-        "bookings": ServiceBooking.objects.count(),
-        "pending_bookings": ServiceBooking.objects.filter(status="Pending").count(),
-        "providers": ServiceProvider.objects.count(),
-        "verified_providers": ServiceProvider.objects.filter(verified=True).count(),
-        "emergencies": EmergencyRequest.objects.filter(status__in=["Pending", "Processing"]).count(),
-        "reviews": Review.objects.count(),
-        "pending_payments": PaymentRecord.objects.filter(status="Pending").count(),
-    }
     return render(request, "operations_dashboard.html", {
         "bookings": bookings,
         "emergencies": emergencies,
         "providers": providers,
-        "customers": customers,
-        "reviews": reviews,
-        "payments": payments,
-        "notifications": notifications,
-        "stats": stats,
     })
 
 
@@ -361,68 +341,7 @@ def operations_assign_provider(request, booking_id):
         pass
     if provider.user_id:
         create_notification(provider.user, "New booking assigned", f"Booking #{booking.id} has been assigned to you.")
-    return redirect("operations")
-
-
-@staff_required
-def operations_update_booking(request, booking_id):
-    if request.method != "POST":
-        return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
-    booking = get_object_or_404(ServiceBooking, id=booking_id)
-    status = request.POST.get("status", "").strip()
-    allowed = {"Pending", "Confirmed", "In Progress", "Completed", "Cancelled"}
-    if status not in allowed:
-        return JsonResponse({"success": False, "message": "Invalid booking status."}, status=400)
-    booking.status = status
-    booking.save(update_fields=["status"])
-    try:
-        customer = User.objects.get(email=booking.mother.email)
-        create_notification(customer, "Booking updated", f"Booking #{booking.id} is now {status}.")
-    except User.DoesNotExist:
-        pass
-    return redirect("operations")
-
-
-@staff_required
-def operations_update_emergency(request, emergency_id):
-    if request.method != "POST":
-        return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
-    emergency = get_object_or_404(EmergencyRequest, id=emergency_id)
-    status = request.POST.get("status", "").strip()
-    allowed = {"Pending", "Processing", "Resolved", "Cancelled"}
-    if status not in allowed:
-        return JsonResponse({"success": False, "message": "Invalid emergency status."}, status=400)
-    emergency.status = status
-    emergency.save(update_fields=["status"])
-    create_notification(emergency.user, "Emergency request updated", f"Emergency request #{emergency.id} is now {status}.")
-    return redirect("operations")
-
-
-@staff_required
-def operations_verify_provider(request, provider_id):
-    if request.method != "POST":
-        return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
-    provider = get_object_or_404(ServiceProvider, id=provider_id)
-    provider.verified = True
-    provider.save(update_fields=["verified"])
-    if provider.user_id:
-        create_notification(provider.user, "Provider verification", "Your MotherCare provider account has been verified.")
-    return redirect("operations")
-
-
-@staff_required
-def operations_update_payment(request, payment_id):
-    if request.method != "POST":
-        return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
-    payment = get_object_or_404(PaymentRecord, id=payment_id)
-    status = request.POST.get("status", "").strip()
-    allowed = {"Pending", "Paid", "Failed", "Refunded"}
-    if status not in allowed:
-        return JsonResponse({"success": False, "message": "Invalid payment status."}, status=400)
-    payment.status = status
-    payment.save(update_fields=["status"])
-    create_notification(payment.user, "Payment updated", f"Payment #{payment.id} is now {status}.")
-    return redirect("operations")
+    return JsonResponse({"success": True, "message": "Provider assigned successfully."})
 
 
 def privacy_policy(request):
